@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 
 export const WHATSAPP_DEMO = "(00) 00000-0000";
-export const WHATSAPP_LINK = "#agendar";
 
 const nav = [
   { href: "/#inicio", label: "Início" },
@@ -22,6 +21,14 @@ export function Logo() {
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onResize = () => window.innerWidth >= 768 && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
+    return () => { window.removeEventListener("keydown", onKey); window.removeEventListener("resize", onResize); };
+  }, [open]);
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
@@ -35,16 +42,17 @@ export function Header() {
           <a href="/#agendar" className="btn-primary">Agendar consulta</a>
         </nav>
         <button
-          className="rounded-md p-2 text-foreground md:hidden"
+          className="flex min-h-11 min-w-11 items-center justify-center rounded-md text-foreground md:hidden"
           aria-label={open ? "Fechar menu" : "Abrir menu"}
           aria-expanded={open}
+          aria-controls="menu-movel"
           onClick={() => setOpen(!open)}
         >
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
       {open && (
-        <nav aria-label="Menu móvel" className="border-t border-border bg-background px-6 pb-6 md:hidden">
+        <nav id="menu-movel" aria-label="Menu móvel" className="border-t border-border bg-background px-6 pb-6 md:hidden">
           {nav.map((n) => (
             <a key={n.href} href={n.href} onClick={() => setOpen(false)} className="block border-b border-border py-4 font-medium text-foreground">
               {n.label}
@@ -69,9 +77,9 @@ export function Footer() {
         </div>
         <div>
           <h3 className="text-sm font-semibold text-foreground">Navegação</h3>
-          <ul className="mt-4 space-y-2 text-sm">
+          <ul className="mt-2 text-sm">
             {nav.map((n) => (
-              <li key={n.href}><a href={n.href} className="text-muted-foreground hover:text-primary">{n.label}</a></li>
+              <li key={n.href}><a href={n.href} className="inline-flex min-h-11 items-center text-muted-foreground hover:text-primary">{n.label}</a></li>
             ))}
           </ul>
         </div>
@@ -85,11 +93,11 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-border">
-        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-6 text-xs text-muted-foreground sm:flex-row sm:justify-between">
+        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-3 text-xs text-muted-foreground sm:flex-row sm:justify-between">
           <span>© {new Date().getFullYear()} Odonto Prime · Projeto de portfólio</span>
-          <div className="flex gap-6">
-            <Link to="/privacidade" className="hover:text-primary">Política de privacidade</Link>
-            <Link to="/informacoes-legais" className="hover:text-primary">Informações legais</Link>
+          <div className="flex flex-wrap gap-x-6">
+            <Link to="/privacidade" className="inline-flex min-h-11 items-center hover:text-primary">Política de privacidade</Link>
+            <Link to="/informacoes-legais" className="inline-flex min-h-11 items-center hover:text-primary">Informações legais</Link>
           </div>
         </div>
       </div>
