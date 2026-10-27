@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Baby, Gem, MessageCircle, ShieldCheck, Sparkles, Smile, SunMedium, Heart, Users, Leaf } from "lucide-react";
-import { Header, Footer, WHATSAPP_DEMO, WHATSAPP_LINK } from "@/components/site";
+import { Header, Footer, WHATSAPP_DEMO } from "@/components/site";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import hero from "@/assets/hero.jpg";
 import clinica from "@/assets/clinica.jpg";
@@ -34,6 +35,7 @@ const faq = [
 ];
 
 function Index() {
+  const [demoNotice, setDemoNotice] = useState(false);
   return (
     <>
       <Header />
@@ -69,7 +71,7 @@ function Index() {
                   <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent text-primary"><Icon size={22} /></span>
                   <h3 className="mt-6 text-lg font-semibold text-foreground">{t}</h3>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{d}</p>
-                  <a href="#agendar" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                  <a href="#agendar" className="-my-3 mt-3 inline-flex min-h-11 items-center gap-2 py-3 text-sm font-semibold text-primary">
                     Fale conosco <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
                   </a>
                 </article>
@@ -121,10 +123,13 @@ function Index() {
                 </ol>
               </div>
               <div className="rounded-2xl bg-primary-foreground/10 p-8">
-                <a href={WHATSAPP_LINK} aria-disabled="true" onClick={(e) => { e.preventDefault(); alert("Demonstração: este número é fictício e nenhuma mensagem será enviada."); }} className="btn-light w-full">
-                  <MessageCircle size={18} /> Conversar pelo WhatsApp
-                </a>
-                <p className="mt-4 text-center text-sm text-primary-foreground/80">
+                <button type="button" onClick={() => setDemoNotice(true)} className="btn-light w-full">
+                  <MessageCircle size={18} aria-hidden="true" /> Conversar pelo WhatsApp
+                </button>
+                <p role="status" className="mt-4 text-center text-sm font-semibold text-primary-foreground">
+                  {demoNotice ? "Demonstração: este número é fictício e nenhuma mensagem foi enviada." : ""}
+                </p>
+                <p className="mt-2 text-center text-sm text-primary-foreground/90">
                   Número de demonstração: {WHATSAPP_DEMO} (fictício)
                 </p>
               </div>
