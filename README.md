@@ -1,26 +1,21 @@
-# Odonto Prime Smile Guide
+# 🦷 Odonto Prime — Landing Page Institucional
 
-Implement exactly the screenshot and nothing else
+Uma landing page moderna, responsiva e focada na conversão de novos pacientes para clínicas odontológicas. 
 
-This project was built with [Lovable](https://lovable.dev).
+🔗 **Link de demonstração:** https://odonto-prime-smile-guide.lovable.app/
 
-**Live app**: https://odonto-prime-smile-guide.lovable.app
+---
 
-## Build with Lovable
+## 🎯 Objetivo do Projeto
+Desenvolver uma interface elegante e acolhedora para o setor de saúde bucal, priorizando a usabilidade, a clareza nas informações de tratamentos e a facilidade no agendamento de consultas via WhatsApp.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/e42caea7-b4b4-4fdc-b3de-37dc371f9396).
+## 🛠️ Tecnologias e Ferramentas
+- **Frontend:** React, Tailwind CSS, TypeScript
+- **Prototipagem e Desenvolvimento Acelerado:** Lovable (Prompt Engineering & IA)
+- **Controle de Versão:** Git & GitHub
+- **Hospedagem:** Lovable Deploy
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+## 🔍 Destaques e Auditoria
+- **Navegação Inteligente:** Âncoras internas para acesso rápido aos serviços e sobre a clínica.
+- **Responsividade Total:** Layout adaptado para mobile, tablet e desktop.
+- **Acessibilidade & Boas Práticas:** Imagens com tags `alt`, hierarquia clara de títulos e indicação transparente de elementos de demonstração.
