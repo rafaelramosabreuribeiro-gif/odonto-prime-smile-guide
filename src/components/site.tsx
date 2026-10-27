@@ -24,7 +24,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur">
-      <div className="mx-auto flex h-18 max-w-6xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Logo />
         <nav aria-label="Principal" className="hidden items-center gap-8 md:flex">
           {nav.map((n) => (
