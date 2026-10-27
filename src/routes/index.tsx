@@ -44,7 +44,7 @@ function Index() {
         <section id="inicio" className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 md:grid-cols-2 md:py-24">
           <div className="animate-rise">
             <p className="eyebrow">Clínica odontológica</p>
-            <h1 className="mt-5 font-display text-5xl leading-[1.05] tracking-tight text-foreground md:text-6xl">
+            <h1 className="mt-5 font-display text-5xl leading-[1.05] tracking-tight text-foreground lg:text-6xl">
               Seu sorriso merece cuidado <em className="text-primary">extraordinário.</em>
             </h1>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
