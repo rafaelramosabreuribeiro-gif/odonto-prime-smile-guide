@@ -21,7 +21,6 @@
 @theme inline {
   --font-sans: "Manrope", system-ui, sans-serif;
   --font-display: "Fraunces", Georgia, serif;
-  --shadow-soft: var(--shadow-soft);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -153,3 +152,26 @@ section[id] { scroll-margin-top: 5rem; }
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @utility animate-rise { animation: rise 0.8s cubic-bezier(.2,.7,.2,1) both; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .animate-rise { animation: none; } }
+
+@utility eyebrow {
+  font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--primary);
+}
+@utility btn-base {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  border-radius: 9999px; padding: 0.8rem 1.5rem; font-size: 0.875rem; font-weight: 600;
+  transition: all 0.2s ease;
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+}
+@utility btn-primary {
+  @apply btn-base; background: var(--primary); color: var(--primary-foreground);
+  &:hover { background: color-mix(in oklab, var(--primary) 88%, black); }
+}
+@utility btn-outline {
+  @apply btn-base; border: 1px solid var(--border); color: var(--foreground); background: var(--background);
+  &:hover { border-color: var(--primary); color: var(--primary); }
+}
+@utility btn-light {
+  @apply btn-base; background: var(--primary-foreground); color: var(--primary);
+  &:hover { background: var(--accent); }
+}
+@utility shadow-soft { box-shadow: var(--shadow-soft); }
