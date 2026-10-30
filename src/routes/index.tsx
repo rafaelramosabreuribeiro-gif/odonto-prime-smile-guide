@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, Baby, Gem, MessageCircle, ShieldCheck, Sparkles, Smile, SunMedium, Heart, Users, Leaf } from "lucide-react";
+import { ArrowRight, Gem, MessageCircle, ScanLine, Smile, SunMedium, Sparkles, Wand2, Moon, Armchair, Receipt, Star, MapPin, Clock } from "lucide-react";
 import { Header, Footer, WHATSAPP_DEMO } from "@/components/site";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import hero from "@/assets/hero.jpg";
@@ -9,70 +9,101 @@ import clinica from "@/assets/clinica.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Odonto Prime — Clínica odontológica (projeto demonstrativo)" },
-      { name: "description", content: "Odonto Prime: cuidado odontológico acolhedor, preventivo e individualizado. Site demonstrativo de portfólio." },
-      { property: "og:title", content: "Odonto Prime — Seu sorriso merece cuidado extraordinário" },
-      { property: "og:description", content: "Limpeza, clareamento, ortodontia, implantes, estética e odontopediatria. Projeto demonstrativo." },
+      { title: "Odonto Prime — Dental Clinic & Aesthetics (demo project)" },
+      { name: "description", content: "Odonto Prime: advanced dental care, implants, Invisalign, whitening and veneers. Demonstrative freelance portfolio project." },
+      { property: "og:title", content: "Odonto Prime — Your Perfect Smile Starts Here" },
+      { property: "og:description", content: "State-of-the-art technology, painless procedures and personalized dental aesthetics. Demo project." },
     ],
   }),
   component: Index,
 });
 
-const tratamentos = [
-  { icon: ShieldCheck, t: "Limpeza e prevenção", d: "Consultas periódicas e limpeza profissional para manter a saúde bucal em dia." },
-  { icon: SunMedium, t: "Clareamento dental", d: "Opções de clareamento avaliadas caso a caso, com acompanhamento profissional." },
-  { icon: Smile, t: "Ortodontia", d: "Correção do alinhamento dos dentes com aparelhos adequados a cada necessidade." },
-  { icon: Gem, t: "Implantes dentários", d: "Reposição de dentes ausentes com planejamento cuidadoso e individual." },
-  { icon: Sparkles, t: "Estética do sorriso", d: "Procedimentos que harmonizam forma, cor e proporção do sorriso." },
-  { icon: Baby, t: "Odontologia infantil", d: "Atendimento paciente e lúdico para criar bons hábitos desde cedo." },
+const stats = [
+  { n: "10,000+", l: "Happy Patients" },
+  { n: "12+", l: "Specialist Doctors" },
+  { n: "15", l: "Years of Excellence" },
+];
+
+const treatments = [
+  { icon: Smile, t: "Invisalign & Orthodontics", d: "Nearly invisible clear aligners and modern braces that straighten teeth comfortably, with a digital plan that previews your result." },
+  { icon: Gem, t: "Dental Implants", d: "Permanent, natural-looking tooth replacement with guided surgical planning for precision, stability and long-term function." },
+  { icon: SunMedium, t: "Teeth Whitening", d: "Professional in-office and take-home whitening that safely brightens your smile by several shades with minimal sensitivity." },
+  { icon: Sparkles, t: "Porcelain Veneers", d: "Ultra-thin, custom-crafted porcelain shells that correct shape, color and spacing for a durable, radiant smile." },
+  { icon: Wand2, t: "Facial Harmonization", d: "Minimally invasive aesthetic procedures that balance facial proportions and complement your smile design." },
+];
+
+const differentials = [
+  { icon: ScanLine, t: "Digital 3D Scanning", d: "No messy impressions — fast, precise intraoral scans for accurate planning." },
+  { icon: Moon, t: "Sedation Options", d: "Comfortable, anxiety-free care with sedation available when appropriate." },
+  { icon: Armchair, t: "Premium Environment", d: "A calm, modern clinic designed around your comfort and privacy." },
+  { icon: Receipt, t: "Transparent Pricing", d: "Clear treatment plans and costs explained before you begin — no surprises." },
+];
+
+const testimonials = [
+  { name: "Sarah M.", r: 5, q: "I was always nervous at the dentist, but the team made me feel completely at ease. My implant looks and feels just like a natural tooth." },
+  { name: "James R.", r: 5, q: "Invisalign here was seamless. The 3D scan showed me the final result before we even started, and the check-ins were quick and easy." },
+  { name: "Ana L.", r: 5, q: "My veneers turned out beautiful and natural. Everything was explained clearly, including the costs. Highly recommend!" },
 ];
 
 const faq = [
-  { q: "Como solicitar uma consulta?", a: "Clique em “Agendar consulta” e envie uma mensagem pelo WhatsApp informando seu nome e o melhor horário. Neste site demonstrativo, o número é fictício." },
-  { q: "Quais tratamentos são oferecidos?", a: "Limpeza e prevenção, clareamento dental, ortodontia, implantes, estética do sorriso e atendimento infantil." },
-  { q: "Como chegar à clínica?", a: "O endereço exibido no rodapé é fictício e serve apenas para demonstração. Em um site real, aqui haveria um mapa e instruções de acesso." },
-  { q: "Como entrar em contato?", a: "Pelos canais listados no rodapé. Todos os contatos deste projeto são demonstrativos." },
+  { q: "How do I book an appointment?", a: "Fill out the booking form or tap the WhatsApp button and tell us your name and preferred time. On this demo site, the contact details are fictional and no request is sent." },
+  { q: "Which treatments do you offer?", a: "Invisalign and orthodontics, dental implants, teeth whitening, porcelain veneers and facial harmonization." },
+  { q: "How do I get to the clinic?", a: "The address shown is fictional and for demonstration only. On a real website, a map and directions would appear here." },
+  { q: "How can I contact you?", a: "Through the channels listed in the contact section. All contact details in this project are for demonstration." },
 ];
 
 function Index() {
   const [demoNotice, setDemoNotice] = useState(false);
+  const [formNotice, setFormNotice] = useState(false);
+  const onSubmit = (e: FormEvent) => { e.preventDefault(); setFormNotice(true); };
+  const field = "mt-2 w-full rounded-lg border border-border bg-background px-4 py-3 text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-primary/20";
   return (
     <>
       <Header />
       <main>
-        {/* Início */}
-        <section id="inicio" className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 md:grid-cols-2 md:py-24">
+        {/* Home */}
+        <section id="home" className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 md:grid-cols-2 md:py-24">
           <div className="animate-rise">
-            <p className="eyebrow">Clínica odontológica</p>
-            <h1 className="mt-5 font-display text-5xl leading-[1.05] tracking-tight text-foreground lg:text-6xl">
-              Seu sorriso merece cuidado <em className="text-primary">extraordinário.</em>
+            <p className="eyebrow">Odonto Prime — Advanced Dental Care</p>
+            <h1 className="mt-5 font-display text-5xl uppercase leading-[1.05] tracking-tight text-foreground lg:text-6xl">
+              Your perfect smile <em className="text-primary">starts here</em>
             </h1>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
-              Atendimento acolhedor, com foco em prevenção e em um plano pensado para você.
+              State-of-the-art technology, painless procedures, and personalized dental aesthetics designed for your confidence.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
-              <a href="#agendar" className="btn-primary">Agendar uma consulta</a>
-              <a href="#tratamentos" className="btn-outline">Conheça nossos tratamentos</a>
+              <a href="#treatments" className="btn-outline uppercase">Our Treatments</a>
+              <a href="#booking" className="btn-primary uppercase">Schedule Consultation</a>
             </div>
+            <dl className="mt-12 grid max-w-md grid-cols-3 gap-4 border-t border-border pt-8">
+              {stats.map((s) => (
+                <div key={s.l}>
+                  <dt className="sr-only">{s.l}</dt>
+                  <dd className="font-display text-3xl text-primary">{s.n}</dd>
+                  <dd className="mt-1 text-xs leading-snug text-muted-foreground">{s.l}</dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mt-3 text-xs text-muted-foreground">Illustrative figures for a fictional clinic.</p>
           </div>
           <div className="animate-rise [animation-delay:150ms]">
-            <img src={hero} alt="Consultório odontológico moderno e iluminado" width={1280} height={1440} className="aspect-[4/4.5] w-full rounded-3xl object-cover shadow-soft" />
+            <img src={hero} alt="Modern, bright dental office" width={1280} height={1440} className="aspect-[4/4.5] w-full rounded-3xl object-cover shadow-soft" />
           </div>
         </section>
 
-        {/* Tratamentos */}
-        <section id="tratamentos" className="bg-secondary py-24">
+        {/* Treatments */}
+        <section id="treatments" className="bg-secondary py-24">
           <div className="mx-auto max-w-6xl px-6">
-            <p className="eyebrow">Tratamentos</p>
-            <h2 className="mt-4 max-w-xl font-display text-4xl tracking-tight text-foreground">Cuidado completo, do preventivo ao estético.</h2>
+            <p className="eyebrow">Treatments</p>
+            <h2 className="mt-4 max-w-xl font-display text-4xl uppercase tracking-tight text-foreground">Specialized Dental Services</h2>
             <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {tratamentos.map(({ icon: Icon, t, d }) => (
+              {treatments.map(({ icon: Icon, t, d }) => (
                 <article key={t} className="group flex flex-col rounded-2xl border border-border bg-card p-8 transition-all hover:-translate-y-1 hover:shadow-soft">
                   <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent text-primary"><Icon size={22} /></span>
                   <h3 className="mt-6 text-lg font-semibold text-foreground">{t}</h3>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{d}</p>
-                  <a href="#agendar" className="-my-3 mt-3 inline-flex min-h-11 items-center gap-2 py-3 text-sm font-semibold text-primary">
-                    Fale conosco <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                  <a href="#booking" className="-my-3 mt-3 inline-flex min-h-11 items-center gap-2 py-3 text-sm font-semibold text-primary">
+                    Book this treatment <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
                   </a>
                 </article>
               ))}
@@ -80,67 +111,95 @@ function Index() {
           </div>
         </section>
 
-        {/* Sobre */}
-        <section id="sobre" className="mx-auto grid max-w-6xl items-center gap-14 px-6 py-24 md:grid-cols-2">
-          <img src={clinica} alt="Recepção da clínica com ambiente claro e plantas" loading="lazy" width={1280} height={960} className="aspect-[4/3] w-full rounded-3xl object-cover" />
+        {/* About */}
+        <section id="about" className="mx-auto grid max-w-6xl items-center gap-14 px-6 py-24 md:grid-cols-2">
+          <img src={clinica} alt="Bright clinic reception with plants" loading="lazy" width={1280} height={960} className="aspect-[4/3] w-full rounded-3xl object-cover" />
           <div>
-            <p className="eyebrow">Sobre a clínica</p>
-            <h2 className="mt-4 font-display text-4xl tracking-tight text-foreground">Uma filosofia de cuidado próxima e atenta.</h2>
+            <p className="eyebrow">About Us</p>
+            <h2 className="mt-4 font-display text-4xl tracking-tight text-foreground">Why Choose Odonto Prime</h2>
             <p className="mt-6 leading-relaxed text-muted-foreground">
-              Acreditamos que cada paciente é único. Ouvimos com calma, explicamos cada etapa e construímos juntos o melhor caminho para a sua saúde bucal.
+              Every patient is unique. We listen carefully, explain each step and build the right plan for your oral health together.
             </p>
-            <ul className="mt-8 space-y-5">
-              {[
-                { icon: Heart, t: "Acolhimento", d: "Um ambiente tranquilo para você se sentir à vontade." },
-                { icon: Leaf, t: "Prevenção", d: "Cuidar antes é a forma mais simples de manter o sorriso saudável." },
-                { icon: Users, t: "Cuidado individualizado", d: "Planos de tratamento pensados para cada pessoa." },
-              ].map(({ icon: Icon, t, d }) => (
+            <ul className="mt-8 grid gap-5 sm:grid-cols-2">
+              {differentials.map(({ icon: Icon, t, d }) => (
                 <li key={t} className="flex gap-4">
                   <Icon size={20} className="mt-1 shrink-0 text-primary" />
                   <div><h3 className="font-semibold text-foreground">{t}</h3><p className="text-sm text-muted-foreground">{d}</p></div>
                 </li>
               ))}
             </ul>
-            <div className="mt-10 flex aspect-[16/7] items-center justify-center rounded-2xl border-2 border-dashed border-border text-sm text-muted-foreground">
-              Espaço reservado para a foto da equipe
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section id="testimonials" className="bg-secondary py-24">
+          <div className="mx-auto max-w-6xl px-6">
+            <p className="eyebrow">Testimonials</p>
+            <h2 className="mt-4 font-display text-4xl tracking-tight text-foreground">What our patients say</h2>
+            <p className="mt-3 text-sm text-muted-foreground">Sample reviews written for this demo project.</p>
+            <div className="mt-12 grid gap-6 md:grid-cols-3">
+              {testimonials.map((t) => (
+                <figure key={t.name} className="flex flex-col rounded-2xl border border-border bg-card p-8">
+                  <div className="flex gap-1 text-primary" role="img" aria-label={`${t.r} out of 5 stars`}>
+                    {Array.from({ length: t.r }).map((_, i) => <Star key={i} size={16} fill="currentColor" aria-hidden="true" />)}
+                  </div>
+                  <blockquote className="mt-4 flex-1 leading-relaxed text-foreground">“{t.q}”</blockquote>
+                  <figcaption className="mt-6 text-sm font-semibold text-muted-foreground">{t.name}</figcaption>
+                </figure>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Agendar */}
-        <section id="agendar" className="px-6 pb-24">
-          <div className="mx-auto max-w-6xl rounded-3xl bg-primary px-8 py-16 text-primary-foreground md:px-16">
-            <div className="grid gap-12 md:grid-cols-2 md:items-center">
+        {/* Booking & contact */}
+        <section id="booking" className="scroll-mt-20 px-6 py-24">
+          <div id="contact" className="mx-auto max-w-6xl scroll-mt-20 rounded-3xl bg-primary px-8 py-16 text-primary-foreground md:px-16">
+            <div className="grid gap-12 md:grid-cols-2">
               <div>
-                <h2 className="font-display text-4xl tracking-tight">Como agendar</h2>
-                <ol className="mt-8 space-y-4">
-                  {["Toque no botão do WhatsApp.", "Conte seu nome e o tratamento de interesse.", "Combinamos juntos o melhor dia e horário."].map((s, i) => (
-                    <li key={s} className="flex items-center gap-4">
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-primary-foreground/40 text-sm font-semibold">{i + 1}</span>
-                      <span className="text-primary-foreground/90">{s}</span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-              <div className="rounded-2xl bg-primary-foreground/10 p-8">
-                <button type="button" onClick={() => setDemoNotice(true)} className="btn-light w-full">
-                  <MessageCircle size={18} aria-hidden="true" /> Conversar pelo WhatsApp
+                <h2 className="font-display text-4xl tracking-tight">Book online</h2>
+                <p className="mt-4 text-primary-foreground/90">Tell us what you need and we'll confirm the best day and time.</p>
+                <ul className="mt-10 space-y-5 text-primary-foreground/90">
+                  <li className="flex gap-3"><MapPin size={20} className="mt-0.5 shrink-0" aria-hidden="true" /><span><strong className="block text-primary-foreground">Address</strong>000 Example Street — City, State (fictional)</span></li>
+                  <li className="flex gap-3"><Clock size={20} className="mt-0.5 shrink-0" aria-hidden="true" /><span><strong className="block text-primary-foreground">Working Hours</strong>Mon–Fri 8am–7pm · Sat 8am–1pm (sample)</span></li>
+                </ul>
+                <button type="button" onClick={() => setDemoNotice(true)} className="btn-light mt-10 w-full sm:w-auto">
+                  <MessageCircle size={18} aria-hidden="true" /> Chat on WhatsApp
                 </button>
-                <p role="status" className="mt-4 text-center text-sm font-semibold text-primary-foreground">
-                  {demoNotice ? "Demonstração: este número é fictício e nenhuma mensagem foi enviada." : ""}
-                </p>
-                <p className="mt-2 text-center text-sm text-primary-foreground/90">
-                  Número de demonstração: {WHATSAPP_DEMO} (fictício)
+                <p className="mt-3 text-sm text-primary-foreground/90">Demo number: {WHATSAPP_DEMO} (fictional)</p>
+                <p role="status" className="mt-2 text-sm font-semibold">
+                  {demoNotice ? "Demo: this number is fictional and no message was sent." : ""}
                 </p>
               </div>
+              <form onSubmit={onSubmit} className="rounded-2xl bg-background p-8 text-foreground">
+                <label className="block text-sm font-semibold">Full Name
+                  <input required name="name" autoComplete="name" className={field} />
+                </label>
+                <label className="mt-5 block text-sm font-semibold">Phone
+                  <input required name="phone" type="tel" autoComplete="tel" className={field} />
+                </label>
+                <label className="mt-5 block text-sm font-semibold">Service Needed
+                  <select required name="service" defaultValue="" className={field}>
+                    <option value="" disabled>Select a service</option>
+                    {treatments.map((t) => <option key={t.t}>{t.t}</option>)}
+                    <option>General check-up</option>
+                  </select>
+                </label>
+                <label className="mt-5 block text-sm font-semibold">Preferred Date/Time
+                  <input required name="datetime" type="datetime-local" className={field} />
+                </label>
+                <button type="submit" className="btn-primary mt-8 w-full">Request Appointment</button>
+                <p role="status" className="mt-4 text-center text-sm font-semibold text-primary">
+                  {formNotice ? "Demo: your request was not sent. This is a portfolio project." : ""}
+                </p>
+              </form>
             </div>
           </div>
         </section>
 
         {/* FAQ */}
         <section id="faq" className="mx-auto max-w-3xl px-6 pb-24">
-          <p className="eyebrow text-center">Dúvidas</p>
-          <h2 className="mt-4 text-center font-display text-4xl tracking-tight text-foreground">Perguntas frequentes</h2>
+          <p className="eyebrow text-center">Questions</p>
+          <h2 className="mt-4 text-center font-display text-4xl tracking-tight text-foreground">Frequently asked questions</h2>
           <Accordion type="single" collapsible className="mt-10">
             {faq.map((f) => (
               <AccordionItem key={f.q} value={f.q}>
